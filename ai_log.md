@@ -7,25 +7,32 @@
 
 ---
 
-## 1. Proprietary Meta-Prompt (The Input)
-*To generate the Senior-Level Requirements Document (V4.2), the following engineered prompt was utilized.*
+## ### 🔴 High-Fidelity Prompt Architecture:
 
-### 🔴 High-Fidelity Prompt Architecture:
-> **Role:** Act as a Principal Systems Architect at a FAANG company.
-> 
-> **Task:** Create a "Gold Standard" Requirements Specification for a lightweight internal Learning Tracker App (10-user scale).
-> 
+> **Role:** Act as a Principal Systems Architect at a FAANG-level organization.
+>
+> **Task:** Generate a “Gold Standard” Requirements Specification for a lightweight internal Learning Tracker App (10-user scale) following the official project brief.
+>
 > **Constraints & Tone:**
-> *   **Strategic Minimalism:** Do not over-engineer. The solution must be "Zero-Friction".
-> *   **Visual Authority:** Use ASCII/Mermaid diagrams for flows. No wall-of-text.
-> *   **Tech Pragmatism:** Evaluate 3 specific stacks (No-Code vs MERN vs SupaStack) and provide a hard recommendation.
-> 
-> **Specific Output Sections:**
-> 1.  **Product Vision:** Business Value proposition.
-> 2.  **Personas:** Detailed profiles of Admin and Learner.
-> 3.  **UI/UX Concept:** High-fidelity text wireframes and Flow Diagrams.
-> 4.  **Functional Specs:** Strict `FR-XX` format with "Smart Tracking" logic.
-> 5.  **Tech Stack Verdict:** A comparative analysis ending in a clear winner.
+> * **Strategic Minimalism:** Avoid over-engineering. Maintain a zero-friction, lightweight system philosophy.
+> * **Visual Authority:** Use clear ASCII and Mermaid diagrams for architecture, flows, and wireframes. Avoid dense text blocks.
+> * **Tech Pragmatism:** Evaluate only the 3 mandated lightweight stacks (No-Code / MERN / Supabase+React) and deliver a decisive architectural recommendation.
+> * **Senior Architect Voice:** Write with clarity, precision, and enterprise-level communication standards.
+>
+> **Specific Output Sections Required:**
+> 1. **Executive Summary:** Purpose, business context, and outcome.
+> 2. **Product Vision:** Business value proposition tailored to a 10-person team.
+> 3. **Personas:** Detailed Admin and Learner profiles with motivations and frustrations.
+> 4. **UI/UX Concept:** High-level text wireframes and user-flow diagrams.
+> 5. **Key Features:** Expanded coverage of Progress Tracking, Quizzes, and Note-Taking.
+> 6. **Functional Specifications:** Strict `FR-XX` formalism, including smart tracking logic and quiz gating rules.
+> 7. **Non-Functional Requirements:** Usability, performance, accessibility, reliability.
+> 8. **Tech Stack Verdict:** Comparison across No-Code, MERN, and Supabase+React with a clear final recommendation.
+> 9. **Architecture Section:** C4-style component view, system flow diagrams, and lightweight data model explanations.
+> 10. **Testing Strategy:** Functional, UX, validation, and accuracy checks.
+> 11. **AI Log / Architect Log:** Document prompts used, architectural decisions, and iteration timeline.
+
+
 
 ---
 
