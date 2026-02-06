@@ -10,6 +10,8 @@
     .confidential-banner { background: #ffebee; color: #c62828; padding: 10px; text-align: center; font-weight: bold; border: 1px solid #ef5350; margin-bottom: 20px; }
     .status-matrix { background: #f5f5f5; padding: 15px; border-left: 5px solid #212121; margin: 20px 0; font-family: 'Consolas', monospace; }
     .wireframe { font-family: 'Consolas', monospace; white-space: pre; background: #1a1a1a; color: #cfcfcf; padding: 20px; border-radius: 8px; overflow-x: auto; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+    .diagram-container { text-align: center; margin: 30px 0; border: 1px solid #eee; padding: 20px; background: #fafafa; }
+    .diagram-container img { max-width: 100%; height: auto; }
     table { border-collapse: collapse; width: 100%; margin: 20px 0; font-size: 0.9em; }
     th { background-color: #333; color: white; padding: 12px; text-align: left; }
     td { border-bottom: 1px solid #ddd; padding: 12px; }
@@ -24,7 +26,7 @@
 <p><strong>Technical Design Document (TDD)</strong></p>
 
 <div class="status-matrix">
-Version: 5.0 (FAANG Architecture Release)<br>
+Version: 5.1 (Live Architecture Release)<br>
 Date: October 26, 2023<br>
 Status: APPROVED FOR ENGINEERING<br>
 Repository: skill-vector-core
@@ -119,11 +121,18 @@ Repository: skill-vector-core
 </ul>
 
 <h2>7. System Architecture (C4 Model)</h2>
-<p><em>(Refer to Source Mermaid Diagrams for Rendered Topology)</em></p>
+<div class="diagram-container">
+    <img src="https://mermaid.ink/img/Z3JhcGggVEQKICAgIFVzZXIoKEVuZ2luZWVyKSkKICAgIGNkbl9ub2RlW0VkZ2UgQ0ROXQogICAgY2xpZW50X2FwcFtTaW5nbGUgUGFnZSBBcHBdCiAgICAKICAgIHN1YmdyYXBoICJJbmZyYXN0cnVjdHVyZSBMYXllciAoU3VwYWJhc2UpIgogICAgICAgIGF1dGhfc3ZjW0dvVHJ1ZSBBdXRoIFNlcnZpY2VdCiAgICAgICAgZGJfY2x1c3RlclsoUG9zdGdyZVNRTCBDbHVzdGVyKV0KICAgICAgICBhcGlfZ3dbQXV0by1HZW5lcmF0ZWQgUkVTVCBBUEldCiAgICBlbmQKCiAgICBVc2VyIC0tPnxIVFRQUy8yfCBjZG5fbm9kZQogICAgY2RuX25vZGUgLS0+fFNlcnZlIEFzc2V0c3wgY2xpZW50X2FwcAogICAgY2xpZW50X2FwcCAtLT58SWRlbnRpdHkgKEpXVCl8IGF1dGhfc3ZjCiAgICBjbGllbnRfYXBwIC0tPnxRdWVyeSAoSlNPTil8IGFwaV9ndwogICAgYXBpX2d3IC0tPnxTUUwgVHJhbnNhY3Rpb25zfCBkYl9jbHVzdGVy" alt="C4 Architecture Diagram">
+</div>
 <ul>
     <li><strong>Infrastructure:</strong> Supabase (Auth, DB, Realtime)</li>
     <li><strong>Edge:</strong> Vercel CDN</li>
 </ul>
+
+<h3>7.1 Module State Logic (Automata)</h3>
+<div class="diagram-container">
+    <img src="https://mermaid.ink/img/c3RhdGVEaWFncmFtLXYyCiAgICBbKl0gLS0+IExvY2tlZAogICAgTG9ja2VkIC0tPiBVbmxvY2tlZDogQXNzaWduZWQgYnkgQWRtaW4KICAgIFVubG9ja2VkIC0tPiBJblByb2dyZXNzOiBVc2VyIGNsaWNrcyBTdGFydAogICAgCiAgICBzdGF0ZSBJblByb2dyZXNzIHsKICAgICAgICBbKl0gLS0+IFdhdGNoaW5nCiAgICAgICAgV2F0Y2hpbmcgLS0+IFBhdXNlZDogSW5hY3Rpdml0eSA+IDFtCiAgICAgICAgV2F0Y2hpbmcgLS0+IENvbXBsZXRlZFZpZGVvOiBQcm9ncmVzcyA+IDkwJQogICAgfQoKICAgIENvbXBsZXRlZFZpZGVvIC0tPiBRdWl6UmVhZHk6IFVubG9jayBRdWl6CiAgICBRdWl6UmVhZHkgLS0+IFF1aXpBdHRlbXB0OiBTdGFydCBRdWl6CiAgICBRdWl6QXR0ZW1wdCAtLT4gUXVpelBhc3NlZDogU2NvcmUgPiA4MCUKICAgIFF1aXpBdHRlbXB0IC0tPiBRdWl6RmFpbGVkOiBTY29yZSA8IDgwJQogICAgUXVpekZhaWxlZCAtLT4gUXVpelJlYWR5OiBSZXRyeSBBbGxvd2VkCiAgICAKICAgIFF1aXpQYXNzZWQgLS0+IE1vZHVsZUNvbXBsZXRlCiAgICBNb2R1bGVDb21wbGV0ZSAtLT4gWypd" alt="State Flow Diagram">
+</div>
 
 <h2>8. Deployment Pipeline</h2>
 <ul>
