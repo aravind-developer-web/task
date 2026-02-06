@@ -1,6 +1,6 @@
 # SkillVector: Enterprise Competency Engine — Technical Design Document (TDD)
 
-**Version:** 5.0 (FAANG Architecture Release)  
+**Version:** 5.1 (Mermaid Syntax Patch)  
 **Date:** October 26, 2023  
 **Status:** **APPROVED FOR ENGINEERING**  
 **Classification:** Confidential / Internal Engineering  
@@ -135,20 +135,20 @@ Achieve a **5x reduction in administrative overhead** while guaranteeing **100% 
 ```mermaid
 graph TD
     User((Engineer))
-    edge[Edge CDN]
-    spa[Single Page App]
+    cdn_node[Edge CDN]
+    client_app[Single Page App]
     
     subgraph "Infrastructure Layer (Supabase)"
-        auth[GoTrue Auth Service]
-        db[(PostgreSQL Cluster)]
-        api[Auto-Generated REST API]
+        auth_svc[GoTrue Auth Service]
+        db_cluster[(PostgreSQL Cluster)]
+        api_gw[Auto-Generated REST API]
     end
 
-    User -->|HTTPS/2| edge
-    edge -->|Serve Assets| spa
-    spa -->|Identity (JWT)| auth
-    spa -->|Query (JSON)| api
-    api -->|SQL Transactions| db
+    User -->|HTTPS/2| cdn_node
+    cdn_node -->|Serve Assets| client_app
+    client_app -->|Identity (JWT)| auth_svc
+    client_app -->|Query (JSON)| api_gw
+    api_gw -->|SQL Transactions| db_cluster
 ```
 
 ---
