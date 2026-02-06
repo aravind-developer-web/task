@@ -1,169 +1,134 @@
 <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
 <head>
 <meta charset="utf-8">
-<title>Learning Tracker App - Requirements Spec V4.0</title>
+<title>SkillVector: Enterprise Competency Engine</title>
 <style>
-    body { font-family: 'Calibri', 'Arial', sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; color: #333; }
-    h1 { color: #2E74B5; border-bottom: 2px solid #2E74B5; padding-bottom: 10px; }
-    h2 { color: #1F4E79; margin-top: 30px; border-bottom: 1px solid #ddd; }
-    h3 { color: #2E74B5; margin-top: 20px; }
-    code { background: #f4f4f4; padding: 2px 5px; border-radius: 3px; font-family: 'Consolas', monospace; }
-    pre { background: #f4f4f4; padding: 15px; border: 1px solid #ddd; overflow-x: auto; }
-    table { border-collapse: collapse; width: 100%; margin: 20px 0; }
-    th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
-    th { background-color: #f2f2f2; }
-    .status-box { background: #e8f5e9; padding: 15px; border-left: 5px solid #4caf50; margin: 20px 0; }
-    .wireframe { font-family: 'Courier New', monospace; white-space: pre; background: #333; color: #fff; padding: 15px; border-radius: 5px; }
-    .mermaid { border: 1px dashed #ccc; padding: 10px; background: #fafafa; text-align: center; color: #666; font-style: italic; }
+    body { font-family: 'Segoe UI', 'Roboto', sans-serif; line-height: 1.6; max-width: 850px; margin: 40px auto; color: #222; }
+    h1 { color: #111; border-bottom: 3px solid #000; padding-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
+    h2 { color: #333; margin-top: 35px; border-bottom: 1px solid #ddd; padding-bottom: 5px; }
+    h3 { color: #444; margin-top: 25px; }
+    .confidential-banner { background: #ffebee; color: #c62828; padding: 10px; text-align: center; font-weight: bold; border: 1px solid #ef5350; margin-bottom: 20px; }
+    .status-matrix { background: #f5f5f5; padding: 15px; border-left: 5px solid #212121; margin: 20px 0; font-family: 'Consolas', monospace; }
+    .wireframe { font-family: 'Consolas', monospace; white-space: pre; background: #1a1a1a; color: #cfcfcf; padding: 20px; border-radius: 8px; overflow-x: auto; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+    table { border-collapse: collapse; width: 100%; margin: 20px 0; font-size: 0.9em; }
+    th { background-color: #333; color: white; padding: 12px; text-align: left; }
+    td { border-bottom: 1px solid #ddd; padding: 12px; }
+    strong { color: #000; font-weight: 700; }
 </style>
 </head>
 <body>
 
-<h1>Learning Tracker App — System Requirements Specification</h1>
+<div class="confidential-banner">CLASSIFICATION: INTERNAL ENGINEERING / CONFIDENTIAL</div>
 
-<div class="status-box">
-<p><strong>Version:</strong> 4.0 (Advanced Architecture Release)<br>
-<strong>Date:</strong> October 26, 2023<br>
-<strong>Status:</strong> READY FOR IMPLEMENTATION<br>
-<strong>Author:</strong> Principal Systems Architect</p>
+<h1>SkillVector: Enterprise Competency Engine</h1>
+<p><strong>Technical Design Document (TDD)</strong></p>
+
+<div class="status-matrix">
+Version: 5.0 (FAANG Architecture Release)<br>
+Date: October 26, 2023<br>
+Status: APPROVED FOR ENGINEERING<br>
+Repository: skill-vector-core
 </div>
 
-<h2>1. Objective</h2>
-<p>The <strong>Learning Tracker App</strong> is a streamlined utility designed to operationalize training for a 10-person team. It replaces ad-hoc spreadsheet tracking with a proactive, friction-free system that allows specific video/course assignment, automated progress tracking, and knowledge verification.</p>
-<p><strong>Primary Goal:</strong> Eliminate administrative follow-up time by <strong>80%</strong> while providing learners with a centralized, purpose-built environment for upskilling.</p>
+<h2>1. Executive Directive</h2>
+<p><strong>SkillVector</strong> is a high-velocity competence acquisition engine designed to optimize the "Mean Time to Proficiency" (MTTP) for engineering squads. Unlike passive LMS (Learning Management Systems), SkillVector employs an <strong>Event-Driven Architecture</strong> to enforce active engagement, cryptographic-grade verification, and friction-free knowledge ingestion.</p>
 
-<h2>2. User Personas</h2>
+<p><strong>Strategic North Star:</strong> Achieve a <strong>5x reduction in administrative overhead</strong> while guaranteeing <strong>100% compliance auditability</strong> through automated, heartbeat-driven telemetry.</p>
 
-<h3>2.1 Admin Persona: "Manager Mike"</h3>
+<h2>2. User Matrix & Psychological Profiles</h2>
+
+<h3>2.1 Admin Persona: "The Engineering Director" (Mike)</h3>
 <ul>
-    <li><strong>Role:</strong> Engineering Team Lead.</li>
-    <li><strong>Motivation:</strong> "I need to know my team is compliant without nagging them."</li>
-    <li><strong>Critical Success Factor:</strong> <strong>Visual Velocity.</strong> He expects to open the dashboard and see a "Green Board" (Team Status) in less than 5 seconds.</li>
-    <li><strong>Pain Points:</strong> Manually checking Slack messages or Google Sheets to see if someone finished a video.</li>
+    <li><strong>Cognitive Model:</strong> "Trust but Verify."</li>
+    <li><strong>SLO Requirement:</strong> <strong>&lt; 200ms</strong> Time-to-Insight. Requires aggregated "Traffic Light" telemetry.</li>
 </ul>
 
-<h3>2.2 Learner Persona: "Developer Sarah"</h3>
+<h3>2.2 Learner Persona: "The 10x Engineer" (Sarah)</h3>
 <ul>
-    <li><strong>Role:</strong> Software Engineer.</li>
-    <li><strong>Motivation:</strong> "I need to learn this new skill quickly without administrative hurdles."</li>
-    <li><strong>Critical Success Factor:</strong> <strong>Cognitive Flow.</strong> She needs to watch, learn, and take notes without fighting a clunky UI.</li>
-    <li><strong>Pain Points:</strong> Context switching. Losing notes or forgetting which second in a video contained the critical info.</li>
+    <li><strong>Cognitive Model:</strong> "Flow State Preservation."</li>
+    <li><strong>Requirement:</strong> Context-Attached Memory. Notes must be strictly bound to video time-indices (temporal binding).</li>
 </ul>
 
-<h2>3. Tech Stack</h2>
-<p><em>Per the project brief, we evaluated three distinct architectural approaches for a lightweight build.</em></p>
+<h2>3. Architectural Stack & Decision Records (ADR)</h2>
 
-<h3>Option 1: No-Code / Low-Code (Airtable + Softr)</h3>
+<h3>Option 1: No-Code (Airtable)</h3>
+<p><strong>Verdict: REJECTED.</strong> Fails to support Custom Event Emitters required for heartbeat logic.</p>
+
+<h3>Option 2: Monolithic MERN</h3>
+<p><strong>Verdict: REJECTED.</strong> Violation of "YAGNI" principle. Managing stateful node clusters is unnecessary OpEx.</p>
+
+<h3>Option 3: Distributed Serverless (Supabase + React)</h3>
+<p><strong>Verdict: APPROVED (SELECTED).</strong></p>
 <ul>
-    <li><strong>Verdict:</strong> <strong>Rejected.</strong> Limitations on the core "Note-Taking" feature make this non-viable for the desired UX.</li>
+    <li><strong>Data Consistency:</strong> ACID compliant via Postgres.</li>
+    <li><strong>Latency:</strong> O(1) content access via Edge CDN.</li>
+    <li><strong>Security:</strong> Zero Trust model via RLS.</li>
 </ul>
 
-<h3>Option 2: MERN Stack (MongoDB, Express, React, Node)</h3>
-<ul>
-    <li><strong>Verdict:</strong> <strong>Rejected.</strong> Too heavy for the current team size. High operational overhead.</li>
-</ul>
+<h2>4. UI/UX Blueprint</h2>
 
-<h3>Option 3: Minimal Backend + Static Frontend (Supabase + React) — **RECOMMENDED**</h3>
-<ul>
-    <li><strong>Why it wins:</strong>
-        <ul>
-            <li><strong>Lightweight:</strong> Zero backend code to manage.</li>
-            <li><strong>Professional:</strong> Enterprise-grade Security (RLS) is free.</li>
-            <li><strong>Scalable:</strong> Handles the 10-user scale effortlessly but can grow to 10,000.</li>
-        </ul>
-    </li>
-</ul>
+<h3>4.1 The Command Center (Admin View)</h3>
+<div class="wireframe">
++-------------------------------------------------------------+
+|  [SkillVector]  ::  ENGINEERING COMPETENCY MATRIX           |
++-------------------------------------------------------------+
+|                                                             |
+|  🟢 SYSTEM HEALTH: 92% Compliance | ⚠️ 1 Squad Risk         |
+|                                                             |
+|  USER_ID          MODULE_HASH            TELEMETRY   SCORE  |
+|  ---------------  ---------------------  ----------  -----  |
+|  dev.sarah        sha256:react_hooks     ✅ SYNCED    100%  |
+|  dev.john         sha256:pg_index        ⏳ PENDING    --   |
+|  dev.mike         sha256:git_flow        🔴 LATENCY    --   |
+|                                                             |
+|  [> INITIATE_NUDGE_PROTOCOL (1) ]                           |
++-------------------------------------------------------------+
+</div>
 
-<h2>4. UI/UX Concept</h2>
-
-<h3>4.1 Learner Dashboard (The "Focus" View)</h3>
+<h3>4.2 The Focus Interface (Learner View)</h3>
 <div class="wireframe">
 +---------------------------------------------------------------+
-|  [LOGO]  LearningTracker                        [Avatar]      |
+|  [SkillVector]  ::  MODULE_EXECUTION_ENV           [Avatar]   |
 +---------------------------------------------------------------+
 |                                                               |
-|   🎯 ACTIVE PRIORITY                                          |
-|   +-------------------------------------------------------+   |
-|   |  System Design Principles: CAP Theorem                |   |
-|   |  [#####################.......] 72% Complete          |   |
-|   |  [ CLICK TO RESUME > ]                                |   |
-|   +-------------------------------------------------------+   |
+|   🎯 CONTEXT: System Design / CAP Theorem                     |
 |                                                               |
-|   📅 UPCOMING MODULES                                         |
-|   |-- React Hooks Deep Dive (Due: Oct 28)                     |
-|   |-- PostgreSQL Indexing Strategies (Due: Nov 01)            |
+|   [ VIDEO PLAYER ----------------------------------------- ]  |
+|   [                                                        ]  |
+|   [   ( Playing: 14:02 / 22:00 )                           ]  |
+|   [                                                        ]  |
+|   [ ------------------------------------------------------ ]  |
+|                                                               |
+|   📝 MEMORY BUFFER (Notes)                                    |
+|   > 12:05: Partition Tolerance is non-negotiable...           |
 |                                                               |
 +---------------------------------------------------------------+
 </div>
 
-<h3>4.2 Admin Dashboard (The "Green Board" View)</h3>
-<div class="wireframe">
-+-----------------------------------------------------------+
-|  [MENU]  Team Overview      [+ Assign Module]             |
-+-----------------------------------------------------------+
-|                                                           |
-|  📊 TEAM HEALTH:  🟢 90% Compliant                        |
-|                                                           |
-|  NAME             MODULE                  STATUS   SCORE  |
-|  ---------------  ----------------------  -------  -----  |
-|  Sarah Dev        React Hooks             ✅ DONE   100%  |
-|  John Backend     PostgreSQL Index        ⏳ 45%     --   |
-|  Mike Junior      Git Flow Basics         🔴 LATE    --   |
-|                                                           |
-|  [ Send "Nudge" to Overdue Users (1) ]                    |
-+-----------------------------------------------------------+
-</div>
-
-<h2>5. Key Features</h2>
-
-<h3>5.1 Progress Tracking</h3>
+<h2>5. Functional Specifications</h2>
 <ul>
-    <li><strong>FR-01:</strong> System acts as a "Smart Watchdog", tracking video progress via heartbeats (30s intervals).</li>
-    <li><strong>FR-02:</strong> Scrubber manipulation (skipping ahead) must not count towards "Watch Time".</li>
-    <li><strong>FR-03:</strong> Modules are only marked "Complete" when Video Progress > 90% AND Quiz Score > 80%.</li>
+    <li><strong>FR-CORE-01 (Heartbeat Protocol):</strong> Client emits signed <code>heartbeat</code> event every 30s.</li>
+    <li><strong>FR-CORE-02 (Gatekeeper Logic):</strong> <code>isComplete = (videoProgress > 0.9) && (quizScore > 0.8)</code></li>
+    <li><strong>FR-CORE-03 (Temporal Binding):</strong> Notes stored as tuple <code>(userId, moduleId, timestamp, content)</code>.</li>
 </ul>
 
-<h3>5.2 Knowledge Checks (Quizzes)</h3>
+<h2>6. Non-Functional Requirements (SLOs)</h2>
 <ul>
-    <li><strong>FR-04:</strong> Quizzes are Gate-Locked. A user cannot attempt the quiz until the video portion is completed.</li>
-    <li><strong>FR-05:</strong> System provides "Instant Rationale" feedback immediately after a quiz submission.</li>
+    <li><strong>P99 Latency:</strong> Dashboard load &lt; 200ms.</li>
+    <li><strong>Security:</strong> TLS 1.3 (ChaCha20-Poly1305), AES-256 GCM at rest.</li>
 </ul>
 
-<h3>5.3 Note-Taking Intelligence</h3>
+<h2>7. System Architecture (C4 Model)</h2>
+<p><em>(Refer to Source Mermaid Diagrams for Rendered Topology)</em></p>
 <ul>
-    <li><strong>FR-07 (Deep Linking):</strong> Notes are timestamp-aware. Clicking a note seeks the video player to that exact moment.</li>
-    <li><strong>FR-08 (Privacy):</strong> Notes are visible <em>only</em> to the author (Learner). Admin has no access.</li>
+    <li><strong>Infrastructure:</strong> Supabase (Auth, DB, Realtime)</li>
+    <li><strong>Edge:</strong> Vercel CDN</li>
 </ul>
 
-<h2>6. Non-Functional Requirements (NFRs)</h2>
+<h2>8. Deployment Pipeline</h2>
 <ul>
-    <li><strong>Usability:</strong> Dashboard Time-to-Interactive <strong>&lt; 800ms</strong>.</li>
-    <li><strong>Security:</strong> All Data <strong>In</strong> Transit encrypted via TLS 1.3. Row-Level Security (RLS) policies enforced.</li>
-    <li><strong>Reliability:</strong> Offline-Grace mode allows reading previously loaded content if connection drops.</li>
-    <li><strong>Compatibility:</strong> Mobile-Responsive design for "On-the-Commute" learning.</li>
-</ul>
-
-<h2>7. System Architecture & Flows (V4.0)</h2>
-<p><em>(See attached Mermaid diagrams in Source for full rendering)</em></p>
-
-<h3>7.1 High-Level Architecture (C4 Component View)</h3>
-<ul>
-    <li><strong>Frontend:</strong> React SPA (Vite) hosted on Edge CDN (Vercel).</li>
-    <li><strong>Backend:</strong> Supabase SaaS (providing Auth, Database, and Realtime).</li>
-</ul>
-
-<h3>7.2 Module State Logic</h3>
-<div class="mermaid">
-[State Diagram Visualized: Locked -> Unlocked -> InProgress -> Watching -> Completed -> Quiz -> Pass]
-</div>
-
-<h2>8. Deployment Strategy (V4.0)</h2>
-
-<h3>8.1 CI/CD Pipeline</h3>
-<ul>
-    <li><strong>Trigger:</strong> Push to <code>main</code> branch.</li>
-    <li><strong>Build:</strong> <code>npm run build</code>.</li>
-    <li><strong>Deploy:</strong> Auto-deploy to Vercel (Frontend) and Supabase (DB Migrations).</li>
+    <li><strong>Repo:</strong> <code>skill-vector-core</code></li>
+    <li><strong>Strategy:</strong> Immutable deployments triggered by Git push.</li>
 </ul>
 
 </body>

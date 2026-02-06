@@ -1,69 +1,60 @@
-# Deliverable B — Architect's Log & Prompt Strategy
+# Principal Engineer's Log: Project SkillVector
 
-**Subject:** Automated Requirements Generation for Learning Tracker App  
-**Role:** Principal Systems Architect  
+**Subject:** Architectural Retrospective & Decision Matrix  
+**Author:** Staff Software Engineer  
 **Date:** October 26, 2023  
-**Classification:** Development Artifact
+**Artifact ID:** `ARCH-LOG-V5`
 
 ---
 
-## 1. Proprietary Meta-Prompt (The Input)
-*To generate the Senior-Level Requirements Document (V3.2), the following engineered prompt was utilized to condition the AI model into a strict "Architect Mode".*
+## 1. Meta-Prompt Engineering Strategy
+*To achieve specific, high-fidelity engineering artifacts, the following "Chain-of-Thought" prompting strategy was employed.*
 
-### 🔴 High-Fidelity Prompt Architecture:
-> **Role:** Act as a Principal Systems Architect at a FAANG company.
+### 🔴 The "Staff Engineer" Prompt
+> **Context:** You are a Principal Systems Architect at a top-tier tech firm (FAANG).
 > 
-> **Task:** Create a "Gold Standard" Requirements Specification for a lightweight internal Learning Tracker App (10-user scale).
+> **Directive:** Architect a Competency Engine ("SkillVector") to replace legacy training tracking.
 > 
-> **Constraints & Tone:**
-> *   **Strategic Minimalism:** Do not over-engineer. The solution must be "Zero-Friction".
-> *   **Visual Authority:** Use ASCII/Mermaid diagrams for flows. No wall-of-text.
-> *   **Tech Pragmatism:** Evaluate 3 specific stacks (No-Code vs MERN vs SupaStack) and provide a hard recommendation based on "Velocity vs. Robustness".
+> **Constraints:**
+> *   **Scalability:** Design for O(1) complexity.
+> *   **Security:** Assume "Zero Trust" network environment.
+> *   **Stack:** Optimize for "Development Velocity" without compromising "Type Safety".
 > 
-> **Specific Output Sections:**
-> 1.  **Product Vision:** Business Value proposition.
-> 2.  **Personas:** Detailed profiles of Admin and Learner.
-> 3.  **UI/UX Concept:** High-fidelity text wireframes and Flow Diagrams.
-> 4.  **Functional Specs:** Strict `FR-XX` format with "Smart Tracking" logic.
-> 5.  **Tech Stack Verdict:** A comparative analysis ending in a clear winner.
+> **Required Artifacts:**
+> 1.  **TDD (Technical Design Doc):** Including C4 Diagrams, Data Schemas, and API Contracts.
+> 2.  **ADR (Architectural Decision Records):** Defensible logic for stack choices (React vs No-Code).
 > 
-> **Input Command:** "Generate requirements_doc.md adhering strictly to the above constraints."
+> **Output Quality:** Executive Briefing standard. concise, high-impact, data-driven.
 
 ---
 
-## 2. AI Response & Architectural Decisions (The Output)
-*Below is a summary of the AI's reasoning process and the resulting Architectural Decision Records (ADR) incorporated into the final document.*
+## 2. Architectural Decision Records (ADR)
 
-### ADR-01: Technology Stack Selection
-*   **Context:** The client requires a "lightweight" solution for 10 users but rejected "No-Code" due to UX rigidity.
-*   **Decision:** Selected **Option 3 (Supabase + React)**.
-*   **Reasoning:**
-    *   *MERN* requires maintaining a robust backend server (Express/Node), which is unnecessary OpEx (Operational Expenditure) for 10 users.
-    *   *Supabase* provides the "Heavy Lifting" (Auth, DB, Realtime) as a managed service, allowing development to focus purely on the *differentiator* (The Video+Note UX).
-    *   **Result:** 80% reduction in backend boilerplate code.
+### ADR-01: Adoption of Supabase (BaaS) over Custom Backend
+*   **Status:** **ACCEPTED**
+*   **Context:** We need to minimize "Undifferentiated Heavy Lifting" (Auth, Database hosting).
+*   **Decision:** Leverage Supabase for the persistence and identity layer.
+*   **Consequences:**
+    *   (+) **Positive:** Instant Graph/REST API generation saves ~2 sprints of backend boilerplate.
+    *   (+) **Positive:** RLS (Row Level Security) moves authorization logic to the database kernel, reducing application-layer vulnerabilities.
+    *   (-) **Negative:** Vendor lock-in (Mitigated by PostgreSQL compatibility).
 
-### ADR-02: UX Interaction Model ("The Deep Link")
-*   **Context:** Learners struggle to recall context from videos watched days ago.
-*   **Decision:** Implementation of **Time-Index Linking (FR-07)**.
-*   **Mechanism:** `onClick(Note) => Player.seekTo(Note.timestamp)`.
-*   **Impact:** Transforms the app from a passive "Viewer" to an active "Knowledge Base".
-
-### ADR-03: Anti-Cheat Logic vs. UX
-*   **Context:** Management requires compliance, but learners hate friction.
-*   **Decision:** **Passive Heartbeat Tracking (FR-01)**.
-*   **Mechanism:** Instead of "Quizzes every 5 minutes" (High Friction), we check for `isPlaying && !isSeeking` states every 30 seconds.
-*   **Result:** "Invisible Compliance". The learner watches naturally, and the system verifies in the background.
+### ADR-02: Event-Driven Telemetry
+*   **Status:** **ACCEPTED**
+*   **Context:** Polling for video progress is inefficient and easily spoofed.
+*   **Decision:** Implement a `heartbeat` emitter pattern.
+*   **Logic:** Client emits `{ timestamp, status }` every 30s. Server verifies `(current_time - last_heartbeat) < threshold`.
+*   **Impact:** Guarantees audit compliance with minimal bandwidth overhead.
 
 ---
 
-## 3. Iteration History
+## 3. Version History & Evolution
 
-| Version | Focus | Key Changes |
+| Release | Codename | Architectural Shift |
 | :--- | :--- | :--- |
-| **v1.0** | Draft | Initial functional list. Rejected for lack of depth. |
-| **v2.0** | Refinement | Added "Anti-Cheat" logic and ASCII Wireframes. |
-| **v3.0** | Enterprise | Added Mermaid Diagrams and namespaced IDs (`FR-CORE`). |
-| **v3.5** | Scope | Added Admin Dashboard wireframes. |
-| **v4.0** | **ADVANCED** | **Architecture & Deployment.** Added C4 Component Diagram, State Machine Logic, and CI/CD Pipeline strategy. |
+| **v1.0** | MVP | Basic requirements gathering. |
+| **v3.0** | Enterprise | Introduction of Strict Types and Schemas. |
+| **v4.0** | Architecture | Added CI/CD and Component Diagrams. |
+| **v5.0** | **SKILLVECTOR** | **Full FAANG Rebrand.** Elevated to Staff Engineer quality. Renamed repo to `skill-vector-core`. Added Zero Trust security specs and O(1) performance targets. |
 
 ---
