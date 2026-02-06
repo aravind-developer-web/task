@@ -1,4 +1,4 @@
-# Deliverable B — Architect's Log & Prompt Strategy
+# — Architect's Log & Prompt Strategy
 
 **Subject:** Automated Requirements Generation for Learning Tracker App  
 **Role:** Principal Systems Architect  
