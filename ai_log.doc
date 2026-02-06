@@ -1,0 +1,90 @@
+<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+<head>
+<meta charset="utf-8">
+<title>Architect's Log & Prompt Strategy</title>
+<style>
+    body { font-family: 'Calibri', 'Arial', sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; color: #333; }
+    h1 { color: #800000; border-bottom: 2px solid #800000; padding-bottom: 10px; }
+    h2 { color: #555; margin-top: 30px; border-bottom: 1px solid #ddd; }
+    .quote-box { background: #fff8e1; padding: 15px; border-left: 5px solid #ffc107; margin: 20px 0; font-family: 'Georgia', serif; }
+    table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+    th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+    th { background-color: #f2f2f2; }
+</style>
+</head>
+<body>
+
+<h1>Deliverable B — Architect's Log & Prompt Strategy</h1>
+
+<p><strong>Subject:</strong> Automated Requirements Generation for Learning Tracker App<br>
+<strong>Role:</strong> Principal Systems Architect<br>
+<strong>Date:</strong> October 26, 2023<br>
+<strong>Classification:</strong> Development Artifact</p>
+
+<h2>1. Proprietary Meta-Prompt (The Input)</h2>
+<p><em>To generate the Senior-Level Requirements Document (V3.2), the following engineered prompt was utilized to condition the AI model into a strict "Architect Mode".</em></p>
+
+<div class="quote-box">
+<p><strong>Role:</strong> Act as a Principal Systems Architect at a FAANG company.</p>
+<p><strong>Task:</strong> Create a "Gold Standard" Requirements Specification for a lightweight internal Learning Tracker App (10-user scale).</p>
+<p><strong>Constraints & Tone:</strong></p>
+<ul>
+    <li><strong>Strategic Minimalism:</strong> Do not over-engineer. The solution must be "Zero-Friction".</li>
+    <li><strong>Visual Authority:</strong> Use ASCII/Mermaid diagrams for flows. No wall-of-text.</li>
+    <li><strong>Tech Pragmatism:</strong> Evaluate 3 specific stacks and provide a hard recommendation.</li>
+</ul>
+</div>
+
+<h2>2. AI Response & Architectural Decisions (The Output)</h2>
+
+<h3>ADR-01: Technology Stack Selection</h3>
+<ul>
+    <li><strong>Decision:</strong> Selected <strong>Option 3 (Supabase + React)</strong>.</li>
+    <li><strong>Reasoning:</strong> MERN requires maintaining a robust backend server, which is unnecessary OpEx. Supabase provides the "Heavy Lifting" (Auth, DB) as a managed service.</li>
+</ul>
+
+<h3>ADR-02: UX Interaction Model ("The Deep Link")</h3>
+<ul>
+    <li><strong>Decision:</strong> Implementation of <strong>Time-Index Linking (FR-07)</strong>.</li>
+</ul>
+
+<h3>ADR-03: Anti-Cheat Logic vs. UX</h3>
+<ul>
+    <li><strong>Decision:</strong> <strong>Passive Heartbeat Tracking</strong>. "Invisible Compliance".</li>
+</ul>
+
+<h2>3. Iteration History</h2>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Focus</th>
+<th>Key Changes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>v3.0</strong></td>
+<td>Enterprise</td>
+<td>Added Mermaid Diagrams and namespaced IDs.</td>
+</tr>
+<tr>
+<td><strong>v3.4</strong></td>
+<td>Compliance</td>
+<td><strong>Strict Vocabulary Alignment:</strong> Renamed all headers to match Project Brief.</td>
+</tr>
+<tr>
+<td><strong>v3.5</strong></td>
+<td>Rectification</td>
+<td>Added Admin Dashboard "Green Board".</td>
+</tr>
+<tr>
+<td><strong>v4.0</strong></td>
+<td><strong>ADVANCED</strong></td>
+<td><strong>Architecture & Deployment:</strong> Added C4 Component Diagram and CI/CD Pipeline.</td>
+</tr>
+</tbody>
+</table>
+
+</body>
+</html>
