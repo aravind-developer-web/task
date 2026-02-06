@@ -1,167 +1,172 @@
-# SkillVector: Enterprise Competency Engine — Technical Design Document (TDD)
+# Learning Tracker App — System Requirements Specification
 
-**Version:** 5.1 (Mermaid Syntax Patch)  
+**Version:** 4.2 (Stable Release)  
 **Date:** October 26, 2023  
-**Status:** **APPROVED FOR ENGINEERING**  
-**Classification:** Confidential / Internal Engineering  
-**Repository:** `skill-vector-core`
+**Status:** **READY FOR IMPLEMENTATION**  
+**Author:** Principal Systems Architect  
+**Classification:** Internal Team Use
 
 ---
 
-## 1. Executive Directive
+## 1. Objective
 
-**SkillVector** is a high-velocity competence acquisition engine designed to optimize the "Mean Time to Proficiency" (MTTP) for engineering squads. Unlike passive LMS (Learning Management Systems), SkillVector employs an **Event-Driven Architecture** to enforce active engagement, cryptographic-grade verification, and friction-free knowledge ingestion.
+The **Learning Tracker App** is a streamlined utility designed to operationalize training for a 10-person team. It replaces ad-hoc spreadsheet tracking with a proactive, friction-free system that allows specific video/course assignment, automated progress tracking, and knowledge verification.
 
-**Strategic North Star:**
-Achieve a **5x reduction in administrative overhead** while guaranteeing **100% compliance auditability** through automated, heartbeat-driven telemetry.
-
----
-
-## 2. User Matrix & Psychological Profiles
-
-### 2.1 Admin Persona: "The Engineering Director" (Mike)
-*   **Role:** Technical Leadership / Governance.
-*   **Cognitive Model:** "Trust but Verify."
-*   **SLO Requirement:** **< 200ms** Time-to-Insight. He requires an aggregated "Traffic Light" telemetry board to assess team health instantly.
-*   **Anti-Pattern to Avoid:** The "Nags Dashboard" (Manually chasing direct reports).
-
-### 2.2 Learner Persona: "The 10x Engineer" (Sarah)
-*   **Role:** Senior Software Engineer.
-*   **Cognitive Model:** "Flow State Preservation."
-*   **Requirement:** Context-Attached Memory. She demands that notes be deeply linked to specific video frames (Time-Index Binding) to reduce cognitive load during recall.
-*   **Anti-Pattern to Avoid:** Context Switching. The UI must be a "Single Pane of Glass."
+**Primary Goal:** Eliminate administrative follow-up time by **80%** while providing learners with a centralized, purpose-built environment for upskilling.
 
 ---
 
-## 3. Architectural Stack & Decision Records (ADR)
+## 2. User Personas
 
-*We evaluated three architectures against the **"Velocity vs. Robustness"** quadrant. The objective was to minimize OpEx (Operational Expenditure) while maximizing extensibility.*
+### 2.1 Admin Persona: "Manager Mike"
+*   **Role:** Engineering Team Lead.
+*   **Motivation:** "I need to know my team is compliant without nagging them."
+*   **Critical Success Factor:** **Visual Velocity.** He expects to open the dashboard and see a "Green Board" (Team Status) in less than 5 seconds.
+*   **Pain Points:** Manually checking Slack messages or Google Sheets to see if someone finished a video.
 
-### Option 1: No-Code/Low-Code (Airtable + Softr)
-*   **Architectural Verdict:** **REJECTED.**
-*   **Reasoning:** Fails to support **Custom Event Emitters** (required for the video heartbeat logic). Tightly coupled UI prevents the "Deep Linking" requirement (FR-07).
-
-### Option 2: Monolithic MERN (Mongo, Express, React, Node)
-*   **Architectural Verdict:** **REJECTED.**
-*   **Reasoning:** Introduces unnecessary **DevOps Complexity**. Managing a stateful Node.js cluster for <100 concurrent connections is a violation of the "YAGNI" (You Aren't Gonna Need It) principle.
-
-### Option 3: Distributed Serverless (Supabase + React on Edge) — **SELECTED**
-*   **Architectural Verdict:** **APPROVED.**
-*   **Core Advantages:**
-    *   **Data Consistency:** Postgres + RLS ensures Strong Consistency (ACID compliance) for compliance records.
-    *   **Latency:** Edge-cached React Client ensures **O(1)** access to module content.
-    *   **Security:** "Zero Trust" model via Row-Level Security (RLS) handled at the database layer.
+### 2.2 Learner Persona: "Developer Sarah"
+*   **Role:** Software Engineer.
+*   **Motivation:** "I need to learn this new skill quickly without administrative hurdles."
+*   **Critical Success Factor:** **Cognitive Flow.** She needs to watch, learn, and take notes without fighting a clunky UI.
+*   **Pain Points:** Context switching. Losing notes or forgetting which second in a video contained the critical info.
 
 ---
 
-## 4. UI/UX Blueprint & Wireframes
+## 3. Tech Stack
 
-**Design System:** "Neumorphic Dark" — High contrast, minimal noise.
+*Per the project brief, we evaluated three distinct architectural approaches for a lightweight build.*
 
-### 4.1 The Command Center (Admin View)
-*   **Visual Metaphor:** Mission Control Status Board.
+### Option 1: No-Code / Low-Code (Airtable + Softr)
+*   **Verdict:** **Rejected.** Limitations on the core "Note-Taking" feature make this non-viable for the desired UX.
 
-```text
-+-------------------------------------------------------------+
-|  [SkillVector]  ::  ENGINEERING COMPETENCY MATRIX           |
-+-------------------------------------------------------------+
-|                                                             |
-|  🟢 SYSTEM HEALTH: 92% Compliance | ⚠️ 1 Squad Risk         |
-|                                                             |
-|  USER_ID          MODULE_HASH            TELEMETRY   SCORE  |
-|  ---------------  ---------------------  ----------  -----  |
-|  dev.sarah        sha256:react_hooks     ✅ SYNCED    100%  |
-|  dev.john         sha256:pg_index        ⏳ PENDING    --   |
-|  dev.mike         sha256:git_flow        🔴 LATENCY    --   |
-|                                                             |
-|  [> INITIATE_NUDGE_PROTOCOL (1) ]                           |
-+-------------------------------------------------------------+
-```
+### Option 2: MERN Stack (MongoDB, Express, React, Node)
+*   **Verdict:** **Rejected.** Too heavy for the current team size. High operational overhead.
 
-### 4.2 The Focus Interface (Learner View)
-*   **Visual Metaphor:** IDE (Integrated Development Environment).
+### Option 3: Minimal Backend + Static Frontend (Supabase + React) — **RECOMMENDED**
+*   **Why it wins:**
+    *   **Lightweight:** Zero backend code to manage.
+    *   **Professional:** Enterprise-grade Security (RLS) is free.
+    *   **Scalable:** Handles the 10-user scale effortlessly.
 
+---
+
+## 4. UI/UX Concept
+
+### 4.1 Learner Dashboard (The "Focus" View)
 ```text
 +---------------------------------------------------------------+
-|  [SkillVector]  ::  MODULE_EXECUTION_ENV           [Avatar]   |
+|  [LOGO]  LearningTracker                        [Avatar]      |
 +---------------------------------------------------------------+
 |                                                               |
-|   🎯 CONTEXT: System Design / CAP Theorem                     |
+|   🎯 ACTIVE PRIORITY                                          |
+|   +-------------------------------------------------------+   |
+|   |  System Design Principles: CAP Theorem                |   |
+|   |  [#####################.......] 72% Complete          |   |
+|   |  [ CLICK TO RESUME > ]                                |   |
+|   +-------------------------------------------------------+   |
 |                                                               |
-|   [ VIDEO PLAYER ----------------------------------------- ]  |
-|   [                                                        ]  |
-|   [   ( Playing: 14:02 / 22:00 )                           ]  |
-|   [                                                        ]  |
-|   [ ------------------------------------------------------ ]  |
-|                                                               |
-|   📝 MEMORY BUFFER (Notes)                                    |
-|   > 12:05: Partition Tolerance is non-negotiable in dist...   |
-|   > 14:00: [User Typing...]                                   |
+|   📅 UPCOMING MODULES                                         |
+|   |-- React Hooks Deep Dive (Due: Oct 28)                     |
 |                                                               |
 +---------------------------------------------------------------+
 ```
 
----
-
-## 5. Functional Specifications (FRD)
-
-### 5.1 Telemetry & Progress
-*   **FR-CORE-01 (Heartbeat Protocol):** Client emits a signed `heartbeat` event every 30s. Server validates timestamp delta to prevent "Fast-Forward" spoofing.
-*   **FR-CORE-02 (Gatekeeper Logic):** Completion State is strictly binary.
-    `isComplete = (videoProgress > 0.9) && (quizScore > 0.8)`
-
-### 5.2 Contextual Memory (Notes)
-*   **FR-CORE-03 (Temporal Binding):** Notes are stored as a tuple `(userId, moduleId, timestamp, content)`.
-*   **FR-CORE-04 (Deep Seek):** Invoking a note triggers a `player.seek(timestamp)` event, restoring context instantly (Time-to-Interactive < 100ms).
-
-### 5.3 Knowledge Verification
-*   **FR-CORE-05 (Lockdown Mode):** Usage of `React.Context` to disable Quiz UI routes until `VIDEO_COMPLETE` event is fired.
-
----
-
-## 6. Non-Functional Requirements (SLOs)
-
-*   **P99 Latency:** Dashboard load time **< 200ms**.
-*   **Availability:** 99.9% (Serverless Fallback).
-*   **Security:**
-    *   **Transit:** TLS 1.3 (ChaCha20-Poly1305).
-    *   **At Rest:** AES-256 GCM.
-    *   **Authorization:** JWT (RS256) with strict Row-Level Security.
+### 4.2 Admin Dashboard (The "Green Board" View)
+```text
++-----------------------------------------------------------+
+|  [MENU]  Team Overview      [+ Assign Module]             |
++-----------------------------------------------------------+
+|                                                           |
+|  📊 TEAM HEALTH:  🟢 90% Compliant                        |
+|                                                           |
+|  NAME             MODULE                  STATUS   SCORE  |
+|  ---------------  ----------------------  -------  -----  |
+|  Sarah Dev        React Hooks             ✅ DONE   100%  |
+|  John Backend     PostgreSQL Index        ⏳ 45%     --   |
+|  Mike Junior      Git Flow Basics         🔴 LATE    --   |
+|                                                           |
+|  [ Send "Nudge" to Overdue Users (1) ]                    |
++-----------------------------------------------------------+
+```
 
 ---
 
-## 7. System Architecture (C4 Model)
+## 5. Key Features
+
+### 5.1 Progress Tracking
+*   **FR-01:** System acts as a "Smart Watchdog", tracking video progress via heartbeats (30s intervals).
+*   **FR-02:** Scrubber manipulation (skipping ahead) must not count towards "Watch Time".
+*   **FR-03:** Modules are only marked "Complete" when Video Progress > 90% AND Quiz Score > 80%.
+
+### 5.2 Knowledge Checks (Quizzes)
+*   **FR-04:** Quizzes are Gate-Locked. A user cannot attempt the quiz until the video portion is completed.
+*   **FR-05:** System provides "Instant Rationale" feedback immediately after a quiz submission.
+
+### 5.3 Note-Taking Intelligence
+*   **FR-07 (Deep Linking):** Notes are timestamp-aware. Clicking a note seeks the video player to that exact moment.
+*   **FR-08 (Privacy):** Notes are visible *only* to the author (Learner). Admin has no access.
+
+---
+
+## 6. System Architecture (V4.2)
+
+### 6.1 High-Level Architecture (C4 Component View)
+*   **Frontend:** React SPA (Vite) hosted on Edge CDN.
+*   **Backend:** Supabase SaaS (providing Auth, Database, and Realtime subscriptions).
 
 ```mermaid
 graph TD
-    User((Engineer))
-    cdn_node[Edge CDN]
-    client_app[Single Page App]
-    
-    subgraph "Infrastructure Layer (Supabase)"
-        auth_svc[GoTrue Auth Service]
-        db_cluster[(PostgreSQL Cluster)]
-        api_gw[Auto-Generated REST API]
+    User((User))
+    cdn_node[Vercel Edge CDN]
+    client_app[React Client App]
+    subgraph Supabase PaaS
+        auth_svc[GoTrue Auth]
+        db_cluster[(Postgres DB)]
+        realtime[Realtime Engine]
     end
 
-    User -->|HTTPS/2| cdn_node
+    User -->|HTTPS| cdn_node
     cdn_node -->|Serve Assets| client_app
-    client_app -->|Identity (JWT)| auth_svc
-    client_app -->|Query (JSON)| api_gw
-    api_gw -->|SQL Transactions| db_cluster
+    client_app -->|JWT Auth| auth_svc
+    client_app -->|REST/JSON| db_cluster
+    client_app -->|WebSockets| realtime
+```
+
+### 6.2 Module State Logic (Flowgraph)
+```mermaid
+stateDiagram-v2
+    [*] --> Locked
+    Locked --> Unlocked: Assigned by Admin
+    Unlocked --> InProgress: User clicks Start
+    
+    state InProgress {
+        [*] --> Watching
+        Watching --> Paused: Inactivity > 1m
+        Watching --> CompletedVideo: Progress > 90%
+    }
+
+    CompletedVideo --> QuizReady: Unlock Quiz
+    QuizReady --> QuizAttempt: Start Quiz
+    QuizAttempt --> QuizPassed: Score > 80%
+    QuizAttempt --> QuizFailed: Score < 80%
+    QuizFailed --> QuizReady: Retry Allowed
+    
+    QuizPassed --> ModuleComplete
+    ModuleComplete --> [*]
 ```
 
 ---
 
-## 8. Deployment pipeline (CI/CD)
+## 7. Deployment Strategy (V4.2)
 
-*   **Repository:** `git@github.com:company/skill-vector-core.git`
-*   **Pipeline Strategy:**
-    1.  **Commit:** Developer pushes to `feature/*`.
-    2.  **Verify:** GitHub Action runs `vitest` suite.
-    3.  **Merge:** PR merged to `main`.
-    4.  **Deploy:**
-        *   **Frontend:** Immutable deployment to Vercel.
-        *   **Backend:** Schematic migration applied via `supabase db push`.
+### 7.1 Hosting Infrastructure
+*   **Frontend:** **Vercel** (Global Edge Network).
+*   **Backend:** **Supabase Cloud**.
+
+### 7.2 CI/CD Pipeline
+*   **Trigger:** Push to `main` branch.
+*   **Build Step:** `npm run build`.
+*   **Test Step:** Run `vitest` unit tests.
+*   **Deploy Step:** Auto-deploy to Vercel Production.
 
 ---
