@@ -23,121 +23,117 @@
 <div class="confidential-banner">CLASSIFICATION: INTERNAL ENGINEERING / CONFIDENTIAL</div>
 
 <h1>SkillVector: Enterprise Competency Engine</h1>
-<p><strong>Technical Design Document (TDD)</strong></p>
+<p><strong>Comprehensive System Design & Implementation Blueprint</strong></p>
 
 <div class="status-matrix">
-Version: 5.1 (Live Architecture Release)<br>
-Date: October 26, 2023<br>
-Status: APPROVED FOR ENGINEERING<br>
+Status: FINAL ENGINEERING MASTER<br>
+Architect: Principal Systems Engineer<br>
 Repository: skill-vector-core
 </div>
 
-<h2>1. Executive Directive</h2>
-<p><strong>SkillVector</strong> is a high-velocity competence acquisition engine designed to optimize the "Mean Time to Proficiency" (MTTP) for engineering squads. Unlike passive LMS (Learning Management Systems), SkillVector employs an <strong>Event-Driven Architecture</strong> to enforce active engagement, cryptographic-grade verification, and friction-free knowledge ingestion.</p>
+<h2>1. Project Directives: From Concept to Execution</h2>
 
-<p><strong>Strategic North Star:</strong> Achieve a <strong>5x reduction in administrative overhead</strong> while guaranteeing <strong>100% compliance auditability</strong> through automated, heartbeat-driven telemetry.</p>
+<h3>1.1 The Strategic Objective</h3>
+<p>The "Lightweight Learning Tracker" project was initiated to solve a critical operational bottleneck: <strong>How do we upskill a 10-person engineering squad without incurring the 20% overhead of a traditional LMS?</strong></p>
+<p>The solution, <strong>SkillVector</strong>, is not just a "tracker". It is a <strong>High-Velocity Competency Engine</strong> designed to:</p>
+<ol>
+    <li><strong>Reduce Admin Latency:</strong> Managers should spend < 5 seconds per week checking compliance.</li>
+    <li><strong>Enforce Active Learning:</strong> Passive watching is blocked via "Heartbeat Telemetry".</li>
+    <li><strong>Preserve Context:</strong> Learning notes are cryptographically bound to video timestamps.</li>
+</ol>
 
-<h2>2. User Matrix & Psychological Profiles</h2>
+<h3>1.2 User Psychology & Personas</h3>
 
-<h3>2.1 Admin Persona: "The Engineering Director" (Mike)</h3>
+<h4>🧠 The Learner: "Flow-State Sarah" (Senior Engineer)</h4>
 <ul>
-    <li><strong>Cognitive Model:</strong> "Trust but Verify."</li>
-    <li><strong>SLO Requirement:</strong> <strong>&lt; 200ms</strong> Time-to-Insight. Requires aggregated "Traffic Light" telemetry.</li>
+    <li><strong>The Problem:</strong> Training tools usually break focus. Finding a specific note from a 2-hour video is impossible.</li>
+    <li><strong>The Solution (UX):</strong> <strong>Contextual Memory.</strong></li>
+    <li><strong>Feature - Deep-Link Note Taking:</strong> When Sarah types a note at <code>14:02</code>, clicking that note later instantly seeks the video to <code>14:02</code>.</li>
 </ul>
 
-<h3>2.2 Learner Persona: "The 10x Engineer" (Sarah)</h3>
+<h4>👮 The Admin: "Governance Mike" (Director)</h4>
 <ul>
-    <li><strong>Cognitive Model:</strong> "Flow State Preservation."</li>
-    <li><strong>Requirement:</strong> Context-Attached Memory. Notes must be strictly bound to video time-indices (temporal binding).</li>
+    <li><strong>The Problem:</strong> "I don't trust self-reported progress."</li>
+    <li><strong>The Solution (Architecture):</strong> <strong>Trustless Verification.</strong></li>
+    <li><strong>Feature - The Green Board:</strong> A traffic-light dashboard showing instant compliance status.</li>
 </ul>
 
-<h2>3. Architectural Stack & Decision Records (ADR)</h2>
+<h2>2. Architectural Decision Records (The "How")</h2>
 
-<h3>Option 1: No-Code (Airtable)</h3>
-<p><strong>Verdict: REJECTED.</strong> Fails to support Custom Event Emitters required for heartbeat logic.</p>
-
-<h3>Option 2: Monolithic MERN</h3>
-<p><strong>Verdict: REJECTED.</strong> Violation of "YAGNI" principle. Managing stateful node clusters is unnecessary OpEx.</p>
-
-<h3>Option 3: Distributed Serverless (Supabase + React)</h3>
-<p><strong>Verdict: APPROVED (SELECTED).</strong></p>
+<h3>2.1 The Tech Stack: "Velocity vs. Robustness"</h3>
+<p>We architected the system using the <strong>SupaStack (Supabase + React)</strong> pattern.</p>
 <ul>
-    <li><strong>Data Consistency:</strong> ACID compliant via Postgres.</li>
-    <li><strong>Latency:</strong> O(1) content access via Edge CDN.</li>
-    <li><strong>Security:</strong> Zero Trust model via RLS.</li>
+    <li><strong>Frontend (The Head):</strong> <strong>React + Vite on Edge CDN.</strong> Instant load times (&lt;100ms).</li>
+    <li><strong>Backend (The Muscle):</strong> <strong>Supabase (PostgreSQL + Auth).</strong> ACID transaction guarantees to satisfy compliance auditing.</li>
 </ul>
 
-<h2>4. UI/UX Blueprint</h2>
+<h3>2.2 Critical Logic: The "Smart Watchdog"</h3>
+<p>To prevent "Cheat-Skipping":</p>
+<ol>
+    <li><strong>Heartbeat Protocol:</strong> Client emits a cryptographic pulse every 30 seconds.</li>
+    <li><strong>Server Validation:</strong> <code>IF (NewTimestamp - LastTimestamp > 40s) THEN REJECT</code>.</li>
+</ol>
 
-<h3>4.1 The Command Center (Admin View)</h3>
-<div class="wireframe">
-+-------------------------------------------------------------+
-|  [SkillVector]  ::  ENGINEERING COMPETENCY MATRIX           |
-+-------------------------------------------------------------+
-|                                                             |
-|  🟢 SYSTEM HEALTH: 92% Compliance | ⚠️ 1 Squad Risk         |
-|                                                             |
-|  USER_ID          MODULE_HASH            TELEMETRY   SCORE  |
-|  ---------------  ---------------------  ----------  -----  |
-|  dev.sarah        sha256:react_hooks     ✅ SYNCED    100%  |
-|  dev.john         sha256:pg_index        ⏳ PENDING    --   |
-|  dev.mike         sha256:git_flow        🔴 LATENCY    --   |
-|                                                             |
-|  [> INITIATE_NUDGE_PROTOCOL (1) ]                           |
-+-------------------------------------------------------------+
-</div>
+<h2>3. Visual Blueprint & Interface Design</h2>
 
-<h3>4.2 The Focus Interface (Learner View)</h3>
+<h3>3.1 Learner Experience (The Execution Environment)</h3>
 <div class="wireframe">
 +---------------------------------------------------------------+
-|  [SkillVector]  ::  MODULE_EXECUTION_ENV           [Avatar]   |
+|  SkillVector :: IDE                                [Profile]  |
 +---------------------------------------------------------------+
 |                                                               |
-|   🎯 CONTEXT: System Design / CAP Theorem                     |
+|   [ VIDEO REPLAY BUFFER --------------------------------- ]   |
+|   [                                                       ]   |
+|   [   ▶️ PLAYING: "Advanced System Design: CAP Theorem"   ]   |
+|   [                                                       ]   |
+|   [ ----------------------------------------------------- ]   |
 |                                                               |
-|   [ VIDEO PLAYER ----------------------------------------- ]  |
-|   [                                                        ]  |
-|   [   ( Playing: 14:02 / 22:00 )                           ]  |
-|   [                                                        ]  |
-|   [ ------------------------------------------------------ ]  |
-|                                                               |
-|   📝 MEMORY BUFFER (Notes)                                    |
-|   > 12:05: Partition Tolerance is non-negotiable...           |
+|   📝 CONTEXT MEMORY (Auto-Saved)                              |
+|   > [12:04] Partition Tolerance means the system continues... |
+|   > [14:15] Strict Consistency implies higher latency...      |
 |                                                               |
 +---------------------------------------------------------------+
 </div>
 
-<h2>5. Functional Specifications</h2>
-<ul>
-    <li><strong>FR-CORE-01 (Heartbeat Protocol):</strong> Client emits signed <code>heartbeat</code> event every 30s.</li>
-    <li><strong>FR-CORE-02 (Gatekeeper Logic):</strong> <code>isComplete = (videoProgress > 0.9) && (quizScore > 0.8)</code></li>
-    <li><strong>FR-CORE-03 (Temporal Binding):</strong> Notes stored as tuple <code>(userId, moduleId, timestamp, content)</code>.</li>
-</ul>
-
-<h2>6. Non-Functional Requirements (SLOs)</h2>
-<ul>
-    <li><strong>P99 Latency:</strong> Dashboard load &lt; 200ms.</li>
-    <li><strong>Security:</strong> TLS 1.3 (ChaCha20-Poly1305), AES-256 GCM at rest.</li>
-</ul>
-
-<h2>7. System Architecture (C4 Model)</h2>
-<div class="diagram-container">
-    <img src="https://mermaid.ink/img/Z3JhcGggVEQKICAgIFVzZXIoKEVuZ2luZWVyKSkKICAgIGNkbl9ub2RlW0VkZ2UgQ0ROXQogICAgY2xpZW50X2FwcFtTaW5nbGUgUGFnZSBBcHBdCiAgICAKICAgIHN1YmdyYXBoICJJbmZyYXN0cnVjdHVyZSBMYXllciAoU3VwYWJhc2UpIgogICAgICAgIGF1dGhfc3ZjW0dvVHJ1ZSBBdXRoIFNlcnZpY2VdCiAgICAgICAgZGJfY2x1c3RlclsoUG9zdGdyZVNRTCBDbHVzdGVyKV0KICAgICAgICBhcGlfZ3dbQXV0by1HZW5lcmF0ZWQgUkVTVCBBUEldCiAgICBlbmQKCiAgICBVc2VyIC0tPnxIVFRQUy8yfCBjZG5fbm9kZQogICAgY2RuX25vZGUgLS0+fFNlcnZlIEFzc2V0c3wgY2xpZW50X2FwcAogICAgY2xpZW50X2FwcCAtLT58SWRlbnRpdHkgKEpXVCl8IGF1dGhfc3ZjCiAgICBjbGllbnRfYXBwIC0tPnxRdWVyeSAoSlNPTil8IGFwaV9ndwogICAgYXBpX2d3IC0tPnxTUUwgVHJhbnNhY3Rpb25zfCBkYl9jbHVzdGVy" alt="C4 Architecture Diagram">
-</div>
-<ul>
-    <li><strong>Infrastructure:</strong> Supabase (Auth, DB, Realtime)</li>
-    <li><strong>Edge:</strong> Vercel CDN</li>
-</ul>
-
-<h3>7.1 Module State Logic (Automata)</h3>
-<div class="diagram-container">
-    <img src="https://mermaid.ink/img/c3RhdGVEaWFncmFtLXYyCiAgICBbKl0gLS0+IExvY2tlZAogICAgTG9ja2VkIC0tPiBVbmxvY2tlZDogQXNzaWduZWQgYnkgQWRtaW4KICAgIFVubG9ja2VkIC0tPiBJblByb2dyZXNzOiBVc2VyIGNsaWNrcyBTdGFydAogICAgCiAgICBzdGF0ZSBJblByb2dyZXNzIHsKICAgICAgICBbKl0gLS0+IFdhdGNoaW5nCiAgICAgICAgV2F0Y2hpbmcgLS0+IFBhdXNlZDogSW5hY3Rpdml0eSA+IDFtCiAgICAgICAgV2F0Y2hpbmcgLS0+IENvbXBsZXRlZFZpZGVvOiBQcm9ncmVzcyA+IDkwJQogICAgfQoKICAgIENvbXBsZXRlZFZpZGVvIC0tPiBRdWl6UmVhZHk6IFVubG9jayBRdWl6CiAgICBRdWl6UmVhZHkgLS0+IFF1aXpBdHRlbXB0OiBTdGFydCBRdWl6CiAgICBRdWl6QXR0ZW1wdCAtLT4gUXVpelBhc3NlZDogU2NvcmUgPiA4MCUKICAgIFF1aXpBdHRlbXB0IC0tPiBRdWl6RmFpbGVkOiBTY29yZSA8IDgwJQogICAgUXVpekZhaWxlZCAtLT4gUXVpelJlYWR5OiBSZXRyeSBBbGxvd2VkCiAgICAKICAgIFF1aXpQYXNzZWQgLS0+IE1vZHVsZUNvbXBsZXRlCiAgICBNb2R1bGVDb21wbGV0ZSAtLT4gWypd" alt="State Flow Diagram">
+<h3>3.2 Admin Experience (The Compliance Matrix)</h3>
+<div class="wireframe">
++-------------------------------------------------------------+
+|  SkillVector :: OPS CENTER                                  |
++-------------------------------------------------------------+
+|  STATUS: 🟢 ALL SYSTEMS NOMINAL                             |
+|                                                             |
+|  ENGINEER         MODULE                 HEARTBEAT    SCORE |
+|  ---------------  ---------------------  ----------  ----- |
+|  Sarah (L5)       React Patterns         ✅ 2m ago     100% |
+|  John (L3)        DB Sharding            ⏳ 4h ago      --  |
+|  Mike (L4)        Kubernetes             🔴 STALE       --  |
++-------------------------------------------------------------+
 </div>
 
-<h2>8. Deployment Pipeline</h2>
+<h2>4. System Architecture & Topology</h2>
+
+<h3>4.1 C4 Component Diagram</h3>
+<div class="diagram-container">
+    <img src="https://mermaid.ink/img/Z3JhcGggVEQKICAgIFVzZXIoKEVuZ2luZWVyKSkKICAgIGNkbl9ub2RlW1ZlcmNlbCBFZGdlIE5ldHdvcmtdCiAgICBzcGFbUmVhY3QgQ2xpZW50IChTUEEpXQogICAgCiAgICBzdWJncmFwaCAiU3VwYWJhc2UgUGFhUyAoQmFja2VuZCBDb3JlKSIKICAgICAgICBhdXRoW0F1dGggU2VydmljZSAoR29UcnVlKV0KICAgICAgICBkYlsoUG9zdGdyZXMgTWFzdGVyKV0KICAgICAgICByZWFsdGltZVtXZWJTb2NrZXRzIEVuZ2luZV0KICAgIGVuZAoKICAgIFVzZXIgLS0+fEhUVHBTLzJ8IGNkbl9ub2RlCiAgICBjZG5fbm9kZSAtLT58RGVsaXZlciBBc3NldHN8IHNwYQogICAgc3BhIC0tPnxkLiBBdXRoZW50aWNhdGUgKEpXVCl8IGF1dGgKICAgIHNwYSAtLT58Mi4gQ29tbWl0IERhdGEgKEpTT04pfCBkYwogICAgc3BhIC0tPnwzLiBMaXZlIFN5bmN8IHJlYWx0aW1lCiAgICBkYiAtLi0+fFJMUyBQb2xpY3kgQ2hlY2t8IGF1dGg" alt="C4 Architecture Diagram">
+</div>
+
+<h3>4.2 Application State Logic</h3>
+<div class="diagram-container">
+    <img src="https://mermaid.ink/img/c3RhdGVEaWFncmFtLXYyCiAgICBbKl0gLS0+IExvY2tlZDogTW9kdWxlIEFzc2lnbmVkCiAgICBMb2NrZWQgLS0+IFVubG9ja2VkOiBQcmVyZXF1aXNpdGUgTWV0CiAgICBVbmxvY2tlZCAtLT4gSW5Qcm9ncmVzczogVXNlciBTdGFydAogICAgCiAgICBzdGF0ZSBJblByb2dyZXNzIHsKICAgICAgICBbKl0gLS0+IFdhdGNoaW5nOiBIZWFydGJlYXQgQWN0aXZlCiAgICAgICAgV2F0Y2hpbmcgLS0+IFBhdXNlZDogSW5hY3Rpdml0eSA+IDYwcwogICAgICAgIFdhdGNoaW5nIC0tPiBWYWxpZGF0aW5nOiBQcm9ncmVzcyA+IDkwJQogICAgfQoKICAgIFZhbGlkYXRpbmcgLS0+IFF1aXpVbmxvY2s6IFZlcmlmaWNhdGlvbiBQYXNzCiAgICBRdWl6VW5sb2NrIC0tPiBRdWl6QWN0aXZlCiAgICBRdWl6QWN0aXZlIC0tPiBQYXNzZWQ6IFNjb3JlID4gODAlCiAgICBRdWl6QWN0aXZlIC0tPiBGYWlsZWQ6IFNjb3JlID<QgODAlCiAgICBGYWlsZWQgLS0+IFF1aXpBY3RpdmU6IFJldHJ5CiAgICBQYXNzZWQgLS0+IENlcnRpZmllZAogICAgQ2VydGlmaWVkIC0tPiBbKl0" alt="State Flow Diagram">
+</div>
+
+<h2>5. Deployment & Production Strategy</h2>
+<h3>5.1 Continuous Integration (CI/CD)</h3>
+<p>We utilize a <strong>GitOps</strong> workflow to ensure stability.</p>
 <ul>
-    <li><strong>Repo:</strong> <code>skill-vector-core</code></li>
-    <li><strong>Strategy:</strong> Immutable deployments triggered by Git push.</li>
+    <li><strong>Source:</strong> <code>git push origin main</code>.</li>
+    <li><strong>Deploy:</strong> Vercel (Frontend) + Supabase CLI (DB Migrations).</li>
+</ul>
+
+<h3>5.2 Security Posture (Zero Trust)</h3>
+<ul>
+    <li><strong>Identity:</strong> No "Superuser" keys in the client. All access is Token-Based (JWT).</li>
+    <li><strong>Encryption:</strong> All streams TLS 1.3 encrypted.</li>
 </ul>
 
 </body>
